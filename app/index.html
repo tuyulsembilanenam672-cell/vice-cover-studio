@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vice Cover Studio — GTA-style cover art maker</title>
+<meta name="description" content="Turn any photo into GTA-style multi-panel cover art with a Vice City sunset or neon grade. Offline, in your browser, photos never uploaded.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">VC</span>
+    <div>
+      <h1>Vice Cover Studio</h1>
+      <p class="tagline">Turn any photo into GTA-style cover art — offline, on your machine.</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <button type="button" id="undoBtn" class="ghost-btn" title="Undo (Ctrl+Z)">Undo</button>
+    <button type="button" id="redoBtn" class="ghost-btn" title="Redo (Ctrl+Shift+Z)">Redo</button>
+    <button type="button" id="downloadBtn" class="primary-btn">Download PNG</button>
+  </div>
+</header>
+
+<main class="editor">
+  <section class="preview-pane" aria-label="Cover preview">
+    <canvas id="preview" width="920" height="520"></canvas>
+    <p class="preview-hint">Click a panel to select it — drag to move its photo, scroll to zoom. Your photos stay on this machine.</p>
+    <div class="steps">
+      <span><strong>1</strong> Add a photo</span>
+      <span><strong>2</strong> Pick a layout &amp; grade</span>
+      <span><strong>3</strong> Write your caption</span>
+      <span><strong>4</strong> Download the PNG</span>
+    </div>
+  </section>
+
+  <aside class="controls" aria-label="Cover controls">
+    <section class="control-group">
+      <h2>Photos</h2>
+      <label class="upload-btn" for="photoUpload">Add photos from your machine</label>
+      <input type="file" id="photoUpload" accept="image/*" multiple hidden>
+      <div class="sample-row">
+        <button type="button" data-sample="samples/boulevard.jpg" data-sample-label="Boulevard">Use sample: Boulevard</button>
+        <button type="button" data-sample="samples/pier.jpg" data-sample-label="Pier">Use sample: Pier</button>
+      </div>
+      <div id="photoList" class="photo-list" aria-label="Loaded photos"></div>
+      <button type="button" id="fillAllBtn" class="ghost-btn" disabled>Fill all panels with the selected photo</button>
+    </section>
+
+    <section class="control-group">
+      <h2>Layout</h2>
+      <div class="choice-grid" id="layoutGrid">
+        <button type="button" data-value="hero-stack">Hero + Stack</button>
+        <button type="button" data-value="nine">Nine Panel</button>
+        <button type="button" data-value="diagonal">Diagonal Split</button>
+        <button type="button" data-value="tilt">Tilted Snapshots</button>
+        <button type="button" data-value="strip">Film Strip</button>
+        <button type="button" data-value="fullbleed">Full Bleed</button>
+      </div>
+    </section>
+
+    <section class="control-group">
+      <h2>Caption</h2>
+      <label class="field-label" for="captionInput">Title</label>
+      <input type="text" id="captionInput" value="VICE CITY" maxlength="24" autocomplete="off">
+      <label class="field-label" for="subtitleInput">Script subtitle</label>
+      <input type="text" id="subtitleInput" value="neon nights" maxlength="32" autocomplete="off">
+      <label class="field-label" for="badgeInput">Badge ribbon</label>
+      <input type="text" id="badgeInput" value="EST. 2026" maxlength="24" autocomplete="off">
+      <label class="field-label" for="captionSize">Title size</label>
+      <input type="range" id="captionSize" min="60" max="140" value="100" step="5">
+      <span class="field-label">Title colour</span>
+      <div class="choice-grid" id="captionColorGrid">
+        <button type="button" data-value="sunset">Sunset</button>
+        <button type="button" data-value="white">White</button>
+        <button type="button" data-value="neon">Neon</button>
+        <button type="button" data-value="black">Black</button>
+      </div>
+      <span class="field-label">Title position</span>
+      <div class="choice-grid" id="captionPositionGrid">
+        <button type="button" data-value="bottom">Bottom</button>
+        <button type="button" data-value="top">Top</button>
+      </div>
+    </section>
+
+    <section class="control-group">
+      <h2>Colour grade</h2>
+      <div class="choice-grid" id="gradeGrid">
+        <button type="button" data-value="sunset">Sunset</button>
+        <button type="button" data-value="neon">Neon Night</button>
+        <button type="button" data-value="dusk">Palm Dusk</button>
+        <button type="button" data-value="heat">Heat Wave</button>
+        <button type="button" data-value="mono">Mono</button>
+      </div>
+    </section>
+
+    <section class="control-group">
+      <h2>Selected panel — <span id="selectedPanelLabel">Panel 1</span></h2>
+      <label class="field-label" for="panelPhoto">Photo in this panel</label>
+      <select id="panelPhoto"></select>
+      <label class="field-label" for="panelZoom">Zoom — <span id="panelZoomVal">100%</span></label>
+      <input type="range" id="panelZoom" min="0.5" max="4" value="1" step="0.05">
+      <label class="field-label" for="panelPanX">Move left / right</label>
+      <input type="range" id="panelPanX" min="-60" max="60" value="0" step="1">
+      <label class="field-label" for="panelPanY">Move up / down</label>
+      <input type="range" id="panelPanY" min="-60" max="60" value="0" step="1">
+      <button type="button" id="panelResetBtn" class="ghost-btn">Reset this panel's crop</button>
+    </section>
+
+    <section class="control-group">
+      <h2>Export size</h2>
+      <div class="choice-grid" id="sizeGrid">
+        <button type="button" data-value="1080x1080">Square 1080 × 1080</button>
+        <button type="button" data-value="1080x1350">Portrait 1080 × 1350</button>
+        <button type="button" data-value="1920x1080">Wide 1920 × 1080</button>
+      </div>
+      <p class="fineprint">Exports a PNG at the exact size above, ready to post.</p>
+    </section>
+  </aside>
+</main>
+
+<footer class="footer">
+  <p>Photos are read on your machine and never uploaded. Lettering: Anton &amp; Pacifico, shipped under the SIL Open Font License (see app/fonts). An original design — no Rockstar Games logo, artwork or fonts.</p>
+</footer>
+
+<script src="src/cover.js"></script>
+<script src="src/main.js"></script>
+<script src="src/shots.js"></script>
+</body>
+</html>
