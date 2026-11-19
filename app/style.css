@@ -1,0 +1,268 @@
+/* Vice Cover Studio — editor chrome.
+ * Dark Vice City palette: near-black plum, hot pink, neon cyan, sunset amber.
+ * Display type is Anton (OFL, vendored under fonts/); body type is the
+ * system stack so the page needs no network at all.
+ */
+@font-face {
+  font-family: 'Anton';
+  src: url('fonts/Anton-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pacifico';
+  src: url('fonts/Pacifico-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: #12041f;
+  color: #f5efe4;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+  min-height: 100vh;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 14px 22px;
+  background: linear-gradient(90deg, #1d062e 0%, #3d0a4e 55%, #12041f 100%);
+  border-bottom: 3px solid #ff2975;
+}
+
+.brand { display: flex; align-items: center; gap: 14px; }
+
+.brand-mark {
+  font-family: 'Anton', 'Arial Narrow', sans-serif;
+  font-size: 30px;
+  line-height: 1;
+  color: #12041f;
+  background: linear-gradient(135deg, #ffd319 0%, #ff2975 60%, #ff7a18 100%);
+  padding: 8px 12px;
+  border-radius: 6px;
+  transform: rotate(-3deg);
+}
+
+.brand h1 {
+  font-family: 'Anton', 'Arial Narrow', sans-serif;
+  font-size: 26px;
+  letter-spacing: 1px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.tagline { margin: 2px 0 0; color: #d9c8e8; font-size: 13px; }
+
+.top-actions { display: flex; gap: 8px; align-items: center; }
+
+.editor {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 20px;
+  padding: 20px 22px;
+  max-width: 1480px;
+  margin: 0 auto;
+}
+
+.preview-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+#preview {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #0a0410;
+  border: 1px solid #3d2354;
+  border-radius: 10px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.preview-hint { margin: 0; color: #c9b8d8; font-size: 13px; }
+
+.steps {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: #d9c8e8;
+  font-size: 13px;
+}
+
+.steps span {
+  background: #22103a;
+  border: 1px solid #3d2354;
+  border-radius: 999px;
+  padding: 5px 12px;
+}
+
+.steps strong {
+  color: #ffd319;
+  margin-right: 5px;
+  font-family: 'Anton', 'Arial Narrow', sans-serif;
+  font-weight: 400;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.control-group {
+  background: #1d0a30;
+  border: 1px solid #3d2354;
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.control-group h2 {
+  font-family: 'Anton', 'Arial Narrow', sans-serif;
+  font-size: 15px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #ffd319;
+  margin: 0 0 10px;
+}
+
+.field-label {
+  display: block;
+  font-size: 12px;
+  color: #c9b8d8;
+  margin: 10px 0 4px;
+}
+
+.control-group input[type="text"],
+.control-group select {
+  width: 100%;
+  background: #12041f;
+  color: #f5efe4;
+  border: 1px solid #4a2d68;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 15px;
+}
+
+.control-group input[type="text"]:focus,
+.control-group select:focus {
+  outline: 2px solid #00e5ff;
+  outline-offset: 1px;
+}
+
+.control-group input[type="range"] {
+  width: 100%;
+  accent-color: #ff2975;
+}
+
+.choice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.choice-grid button,
+.sample-row button,
+.thumb-btn {
+  background: #2a1145;
+  color: #f5efe4;
+  border: 1px solid #4a2d68;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.choice-grid button:hover,
+.sample-row button:hover,
+.thumb-btn:hover { border-color: #ff2975; }
+
+.choice-grid button.active {
+  background: linear-gradient(135deg, #ff2975, #ff7a18);
+  border-color: #ffd319;
+  color: #fff;
+  font-weight: 700;
+}
+
+.upload-btn {
+  display: block;
+  text-align: center;
+  background: linear-gradient(135deg, #ff2975, #7b2ff7);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 10px;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.sample-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.photo-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.photo-list:empty { margin: 0; }
+
+.primary-btn {
+  background: linear-gradient(135deg, #ffd319, #ff2975);
+  color: #12041f;
+  font-weight: 800;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.ghost-btn {
+  background: transparent;
+  color: #f5efe4;
+  border: 1px solid #4a2d68;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.ghost-btn:disabled { opacity: 0.4; cursor: default; }
+
+.ghost-btn:not(:disabled):hover { border-color: #00e5ff; }
+
+.fineprint { color: #c9b8d8; font-size: 12px; margin: 10px 0 0; }
+
+.footer {
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 0 22px 26px;
+  color: #a98fc2;
+  font-size: 12px;
+}
+
+.footer p { margin: 0; }
+
+@media (max-width: 900px) {
+  .editor { grid-template-columns: 1fr; }
+  .brand h1 { font-size: 21px; }
+}
