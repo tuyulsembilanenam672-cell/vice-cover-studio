@@ -1,0 +1,20 @@
+{
+  "shots": [
+    {
+      "file": "1-cover.jpg",
+      "description": "Exported wide cover (1920x1080), Hero + Stack layout, Sunset grade, caption VICE CITY, drawn by the app's own renderer."
+    },
+    {
+      "file": "2-editor.jpg",
+      "description": "The editor in a desktop browser with a sample photo loaded: live preview, layout, caption, grade and per-panel crop controls visible."
+    },
+    {
+      "file": "3-cover.jpg",
+      "description": "Exported portrait cover (1080x1350), Nine Panel layout, Neon Night grade, caption NEON SHORE, drawn by the app's own renderer."
+    },
+    {
+      "file": "4-cover.jpg",
+      "description": "Exported square cover (1080x1080), Diagonal Split layout, Palm Dusk grade, caption PALM DUSK, drawn by the app's own renderer."
+    }
+  ]
+}
